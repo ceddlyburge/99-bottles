@@ -4,7 +4,7 @@ using Xunit;
 
 public class BeerSongTest
 {
-    [Fact(Skip = "Remove to run test")]
+    [Fact]
     public void First_generic_verse()
     {
         var expected = 
