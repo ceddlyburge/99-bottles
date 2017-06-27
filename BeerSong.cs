@@ -1,39 +1,15 @@
 ﻿using System;
 
-public static class BeerSong
+namespace BeerSong
 {
-    public static string Verse(int number)
+    public static class BeerSong
     {
-        if (number == 0)
-            return VerseZero();
-        else if (number == 1)
-            return VerseOne();
-        else if (number == 2)
-            return VerseTwo();
-        else 
-            return VerseThreeOrLater(number);
+        public static string Verse(int number) =>
+            BeerSongGenerator.Verse(number);
 
-        throw new NotImplementedException("You need to implement this function.");
-    }
-
-    private static string VerseZero() =>
-        "No more bottles of beer on the wall, no more bottles of beer.\n" +
-        "Go to the store and buy some more, 99 bottles of beer on the wall.\n";
-
-    private static string VerseOne() =>
-        "1 bottle of beer on the wall, 1 bottle of beer.\n" +
-        "Take it down and pass it around, no more bottles of beer on the wall.\n";
-
-    private static string VerseTwo() =>
-        "2 bottles of beer on the wall, 2 bottles of beer.\n" +
-        "Take one down and pass it around, 1 bottle of beer on the wall.\n";
-
-    private static string VerseThreeOrLater(int verse) =>
-        $"{verse} bottles of beer on the wall, {verse} bottles of beer.\n" +
-        $"Take one down and pass it around, {verse - 1} bottles of beer on the wall.\n";
-
-    public static string Verses(int begin, int end)
-    {
-        throw new NotImplementedException("You need to implement this function.");
+        public static string Verses(int begin, int end)
+        {
+            throw new NotImplementedException("You need to implement this function.");
+        }
     }
 }
