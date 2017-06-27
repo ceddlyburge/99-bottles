@@ -1,42 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace BeerSong
 {
     public class BeerSongGenerator
     {
+        List<string> lines;
+
         public BeerSongGenerator()
         {
-
+            lines = new List<string>();
         }
 
         public string Verse(int number)
         {
             if (number == 0)
-                return VerseZero();
+                VerseZero();
             else if (number == 1)
-                return VerseOne();
+                VerseOne();
             else if (number == 2)
-                return VerseTwo();
+                VerseTwo();
             else
-                return VerseThreeOrLater(number);
+                VerseThreeOrLater(number);
+
+            return BeerSong();
         }
 
-        private static string VerseZero() =>
-            "No more bottles of beer on the wall, no more bottles of beer.\n" +
-            "Go to the store and buy some more, 99 bottles of beer on the wall.\n";
+        // I would like to test this method in isolation, not sure how yet
+        internal string BeerSong() =>
+            lines.Aggregate((aggregate, next) => $"{aggregate}\n{next}") + "\n";
 
-        private static string VerseOne() =>
-            "1 bottle of beer on the wall, 1 bottle of beer.\n" +
-            "Take it down and pass it around, no more bottles of beer on the wall.\n";
+        void VerseZero()
+        {
+            Add("No more bottles of beer on the wall, no more bottles of beer.");
+            Add("Go to the store and buy some more, 99 bottles of beer on the wall.");
+        }
 
-        private static string VerseTwo() =>
-            "2 bottles of beer on the wall, 2 bottles of beer.\n" +
-            "Take one down and pass it around, 1 bottle of beer on the wall.\n";
+        void VerseOne()
+        {
+            Add("1 bottle of beer on the wall, 1 bottle of beer.");
+            Add("Take it down and pass it around, no more bottles of beer on the wall.");
+        }
 
-        private static string VerseThreeOrLater(int verse) =>
-            $"{verse} bottles of beer on the wall, {verse} bottles of beer.\n" +
-            $"Take one down and pass it around, {verse - 1} bottles of beer on the wall.\n";
+        void VerseTwo()
+        {
+            Add("2 bottles of beer on the wall, 2 bottles of beer.");
+            Add("Take one down and pass it around, 1 bottle of beer on the wall.");
+        }
+
+        void VerseThreeOrLater(int verse)
+        {
+            Add($"{verse} bottles of beer on the wall, {verse} bottles of beer.");
+            Add($"Take one down and pass it around, {verse - 1} bottles of beer on the wall.");
+        }
+
+        void Add(string line) =>
+            lines.Add(line);
+
     }
 }
