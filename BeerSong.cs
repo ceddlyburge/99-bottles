@@ -5,7 +5,7 @@ namespace BeerSong
     public static class BeerSong
     {
         public static string Verse(int number) =>
-            BeerSongGenerator.Verse(number);
+            new BeerSongGenerator().Verse(number);
 
         public static string Verses(int begin, int end)
         {

@@ -4,9 +4,14 @@ using System.Text;
 
 namespace BeerSong
 {
-    class BeerSongGenerator
+    public class BeerSongGenerator
     {
-        public static string Verse(int number)
+        public BeerSongGenerator()
+        {
+
+        }
+
+        public string Verse(int number)
         {
             if (number == 0)
                 return VerseZero();
@@ -16,8 +21,6 @@ namespace BeerSong
                 return VerseTwo();
             else
                 return VerseThreeOrLater(number);
-
-            throw new NotImplementedException("You need to implement this function.");
         }
 
         private static string VerseZero() =>
