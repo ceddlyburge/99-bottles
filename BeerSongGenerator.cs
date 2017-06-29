@@ -26,9 +26,24 @@ namespace BeerSong
             return BeerSong();
         }
 
-        // I would like to test this method in isolation, not sure how yet
-        internal string BeerSong() =>
-            lines.Aggregate((aggregate, next) => $"{aggregate}\n{next}") + "\n";
+        
+        void VerseZero()
+        {
+            Add($"{NumberOfBottles(0)} of beer on the wall, {numberOfBottles(0)} of beer.");
+            Add($"Go to the store and buy some more, {numberOfBottles(99)} of beer on the wall.");
+        }
+
+        void VerseOne()
+        {
+            Add($"{NumberOfBottles(1)} of beer on the wall, {numberOfBottles(1)} of beer.");
+            Add($"Take it down and pass it around, {numberOfBottles(0)} of beer on the wall.");
+        }
+
+        void VerseTwoOrLater(int verse)
+        {
+            Add($"{NumberOfBottles(verse)} of beer on the wall, {numberOfBottles(verse)} of beer.");
+            Add($"Take one down and pass it around, {numberOfBottles(verse - 1)} of beer on the wall.");
+        }
 
         string NumberOfBottles(int bottles)
         {
@@ -50,23 +65,9 @@ namespace BeerSong
                 return NumberOfBottles(bottles);
         }
 
-        void VerseZero()
-        {
-            Add($"{NumberOfBottles(0)} of beer on the wall, {numberOfBottles(0)} of beer.");
-            Add($"Go to the store and buy some more, {numberOfBottles(99)} of beer on the wall.");
-        }
-
-        void VerseOne()
-        {
-            Add($"{NumberOfBottles(1)} of beer on the wall, {numberOfBottles(1)} of beer.");
-            Add($"Take it down and pass it around, {numberOfBottles(0)} of beer on the wall.");
-        }
-
-        void VerseTwoOrLater(int verse)
-        {
-            Add($"{NumberOfBottles(verse)} of beer on the wall, {numberOfBottles(verse)} of beer.");
-            Add($"Take one down and pass it around, {numberOfBottles(verse - 1)} of beer on the wall.");
-        }
+        // I would like to test this method in isolation, not sure how yet
+        internal string BeerSong() =>
+            lines.Aggregate((aggregate, next) => $"{aggregate}\n{next}") + "\n";
 
         void Add(string line) =>
             lines.Add(line);
