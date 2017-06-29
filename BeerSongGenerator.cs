@@ -32,28 +32,48 @@ namespace BeerSong
         internal string BeerSong() =>
             lines.Aggregate((aggregate, next) => $"{aggregate}\n{next}") + "\n";
 
+        string NumberOfBottles(int bottles)
+        {
+            if (bottles == 0)
+                return "No more bottles";
+            else if (bottles == 1)
+                return "1 bottle";
+            else
+                return $"{bottles} bottles";
+        }
+
+        // return the number of bottles, but with the first character in lower case for use in the middle of a sentence.
+        // I think this makes it more readable, but it does contradict usual naming conventions.
+        string numberOfBottles(int bottles)
+        {
+            if (bottles == 0)
+                return "no more bottles";
+            else
+                return NumberOfBottles(bottles);
+        }
+
         void VerseZero()
         {
-            Add("No more bottles of beer on the wall, no more bottles of beer.");
-            Add("Go to the store and buy some more, 99 bottles of beer on the wall.");
+            Add($"{NumberOfBottles(0)} of beer on the wall, {numberOfBottles(0)} of beer.");
+            Add($"Go to the store and buy some more, {numberOfBottles(99)} of beer on the wall.");
         }
 
         void VerseOne()
         {
-            Add("1 bottle of beer on the wall, 1 bottle of beer.");
-            Add("Take it down and pass it around, no more bottles of beer on the wall.");
+            Add($"{NumberOfBottles(1)} of beer on the wall, {numberOfBottles(1)} of beer.");
+            Add($"Take it down and pass it around, {numberOfBottles(0)} of beer on the wall.");
         }
 
         void VerseTwo()
         {
-            Add("2 bottles of beer on the wall, 2 bottles of beer.");
-            Add("Take one down and pass it around, 1 bottle of beer on the wall.");
+            Add($"{NumberOfBottles(2)} of beer on the wall, {numberOfBottles(2)} of beer.");
+            Add($"Take one down and pass it around, {numberOfBottles(1)} of beer on the wall.");
         }
 
         void VerseThreeOrLater(int verse)
         {
-            Add($"{verse} bottles of beer on the wall, {verse} bottles of beer.");
-            Add($"Take one down and pass it around, {verse - 1} bottles of beer on the wall.");
+            Add($"{NumberOfBottles(verse)} of beer on the wall, {numberOfBottles(verse)} of beer.");
+            Add($"Take one down and pass it around, {numberOfBottles(verse - 1)} of beer on the wall.");
         }
 
         void Add(string line) =>
