@@ -20,10 +20,8 @@ namespace BeerSong
                 VerseZero();
             else if (number == 1)
                 VerseOne();
-            else if (number == 2)
-                VerseTwo();
             else
-                VerseThreeOrLater(number);
+                VerseTwoOrLater(number);
 
             return BeerSong();
         }
@@ -64,13 +62,7 @@ namespace BeerSong
             Add($"Take it down and pass it around, {numberOfBottles(0)} of beer on the wall.");
         }
 
-        void VerseTwo()
-        {
-            Add($"{NumberOfBottles(2)} of beer on the wall, {numberOfBottles(2)} of beer.");
-            Add($"Take one down and pass it around, {numberOfBottles(1)} of beer on the wall.");
-        }
-
-        void VerseThreeOrLater(int verse)
+        void VerseTwoOrLater(int verse)
         {
             Add($"{NumberOfBottles(verse)} of beer on the wall, {numberOfBottles(verse)} of beer.");
             Add($"Take one down and pass it around, {numberOfBottles(verse - 1)} of beer on the wall.");
