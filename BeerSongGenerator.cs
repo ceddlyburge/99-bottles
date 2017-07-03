@@ -1,26 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
-using System.Linq;
 
 namespace BeerSong
 {
     public class BeerSongGenerator
     {
-        List<string> lines;
+        readonly StringBuilder verses;
+        readonly int begin;
+        readonly int end;
 
-        public BeerSongGenerator()
+        // check that begin > end, check end >= 0, check begin <= 99
+        public BeerSongGenerator(int begin, int end)
         {
-            lines = new List<string>();
+            Contract.Requires(begin > end);
+            Contract.Requires(end >= 0);
+            Contract.Requires(begin <= 99);
+
+            verses = new StringBuilder();
+            this.begin = begin;
+            this.end = end;
         }
 
+        public string Verses()
+        {
+            AddFirstVerse();
 
-        // I would like to test this method in isolation, not sure how yet
-        internal string BeerSong() =>
-            lines.Aggregate((aggregate, next) => $"{aggregate}\n{next}") + "\n";
+            AddSubsequentVersesWithSeparater();
 
-        void Add(string line) =>
-            lines.Add(line);
+            return AddedVerses();
+        }
 
+        void AddFirstVerse() =>
+            verses.Append(Verse(begin));
+
+        void AddSubsequentVersesWithSeparater()
+        {
+            for (int verse = begin - 1; verse >= end; verse--)
+            {
+                AddVerseSeparater();
+                AddVerse(verse);
+            }
+        }
+
+        void AddVerse(int verse) =>
+            verses.Append(Verse(verse));
+
+        string Verse(int verse) =>
+            new VerseGenerator(verse).Verse;
+
+        void AddVerseSeparater() =>
+            verses.Append("\n");
+
+        string AddedVerses() =>
+            verses.ToString();
     }
 }

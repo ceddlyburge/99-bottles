@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace BeerSong
@@ -8,9 +9,11 @@ namespace BeerSong
     {
         readonly int verse;
 
-        // check for 0 <= verse <= 99
         public VerseGenerator(int verse)
         {
+            Contract.Requires(verse >= 0);
+            Contract.Requires(verse <= 99);
+
             this.verse = verse;
         }
 
@@ -31,19 +34,9 @@ namespace BeerSong
             HowManyBottles(verse);
 
         // return the number of bottles, but with the first character in lower case for use in the middle of a sentence.
-        // I think this makes it more readable, but it does contradict usual naming conventions and is a bit non obvious.
+        // I think the lowercase method name makes it more readable, but it does contradict usual naming conventions and is a bit non obvious.
         string numberOfBottles =>
             howManyBottles(verse);
-
-        // add check for verse >= 1
-        string oneOrIt =>
-            (verse == 1)
-                ? "it"
-                : "one";
-
-        // add check for verse >= 1
-        string oneLessBottle =>
-            howManyBottles(verse - 1);
 
         // I would rather call this NumberOfBottles but it clashes with the property of the same name. I could make them both overloaded methods, but then I would have brackets in VerseOneOrLater, which would make it less readable. It's a close call on which is best in cedds opinion.
         string HowManyBottles(int bottles)
@@ -57,10 +50,33 @@ namespace BeerSong
         }
 
         // return the number of bottles, but with the first character in lower case for use in the middle of a sentence.
-        // I think this makes it more readable, but it does contradict usual naming conventions and is a bit non obvious.
+        // I think the lowercase method name makes it more readable, but it does contradict usual naming conventions and is a bit non obvious.
         string howManyBottles(int bottles) =>
              (bottles == 0)
                 ? "no more bottles"
                 : HowManyBottles(bottles);
-   }
+
+        string oneOrIt
+        {
+            get
+            {
+                Contract.Requires(verse >= 1);
+
+                return (verse == 1)
+                    ? "it"
+                    : "one";
+            }
+        }
+
+        string oneLessBottle
+        {
+            get
+            {
+                Contract.Requires(verse >= 1);
+
+                return howManyBottles(verse - 1);
+            }
+        }
+
+    }
 }
