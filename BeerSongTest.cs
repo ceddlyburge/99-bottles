@@ -66,7 +66,7 @@ namespace BeerSong
                 "98 bottles of beer on the wall, 98 bottles of beer.\n" +
                 "Take one down and pass it around, 97 bottles of beer on the wall.\n" +
                 "";
-            Assert.Equal(expected, new BeerSongGenerator(99, 98).Verses());
+            Assert.Equal(expected, new BeerSongGenerator().Verses(99, 98));
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace BeerSong
                 "No more bottles of beer on the wall, no more bottles of beer.\n" +
                 "Go to the store and buy some more, 99 bottles of beer on the wall.\n" +
                 "";
-            Assert.Equal(expected, new BeerSongGenerator(2, 0).Verses());
+            Assert.Equal(expected, new BeerSongGenerator().Verses(2, 0));
         }
 
         [Fact]
@@ -389,7 +389,7 @@ namespace BeerSong
                 "No more bottles of beer on the wall, no more bottles of beer.\n" +
                 "Go to the store and buy some more, 99 bottles of beer on the wall.\n" +
                 "";
-            Assert.Equal(expected, new BeerSongGenerator(99, 0).Verses());
+            Assert.Equal(expected, new BeerSongGenerator().Verses(99, 0));
         }
     }
 }

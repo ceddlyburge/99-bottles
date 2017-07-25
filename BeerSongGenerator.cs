@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Text;
 
@@ -6,53 +7,22 @@ namespace BeerSong
 {
     public class BeerSongGenerator
     {
-        readonly StringBuilder verses;
-        readonly int begin;
-        readonly int end;
-
-        // check that begin > end, check end >= 0, check begin <= 99
-        public BeerSongGenerator(int begin, int end)
+        public string Verses(int begin, int end)
         {
             Contract.Requires(begin > end);
             Contract.Requires(end >= 0);
             Contract.Requires(begin <= 99);
 
-            verses = new StringBuilder();
-            this.begin = begin;
-            this.end = end;
+            return string.Join("\n", VersesList(begin, end));
         }
 
-        public string Verses()
+        IEnumerable<string> VersesList(int begin, int end)
         {
-            AddFirstVerse();
-
-            AddSubsequentVersesWithSeparater();
-
-            return AddedVerses();
+            for (int verse = begin; verse >= end; verse--)
+                yield return Verse(verse);
         }
-
-        void AddFirstVerse() =>
-            verses.Append(Verse(begin));
-
-        void AddSubsequentVersesWithSeparater()
-        {
-            for (int verse = begin - 1; verse >= end; verse--)
-            {
-                AddVerseSeparater();
-                AddVerse(verse);
-            }
-        }
-
-        void AddVerse(int verse) =>
-            verses.Append(Verse(verse));
 
         string Verse(int verse) =>
             new VerseGenerator(verse).Verse;
-
-        void AddVerseSeparater() =>
-            verses.Append("\n");
-
-        string AddedVerses() =>
-            verses.ToString();
     }
 }
